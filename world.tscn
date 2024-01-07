@@ -1,0 +1,367 @@
+[gd_scene load_steps=20 format=3 uid="uid://crum63u6wnooe"]
+
+[ext_resource type="Script" path="res://world.gd" id="1_qkq14"]
+[ext_resource type="Texture2D" uid="uid://cb46quo7eky1n" path="res://assets/crosshair.png" id="3_35n3h"]
+[ext_resource type="Texture2D" uid="uid://diolg5eud2qqw" path="res://addons/kenney_prototype_textures/light/texture_02.png" id="3_nhy6i"]
+[ext_resource type="Texture2D" uid="uid://bgvbypdiw3kli" path="res://addons/kenney_prototype_textures/red/texture_05.png" id="4_y7kkm"]
+[ext_resource type="Texture2D" uid="uid://wvwj40c6y8wa" path="res://addons/kenney_prototype_textures/green/texture_01.png" id="5_quk4n"]
+[ext_resource type="Material" uid="uid://bpjwyev0w3dje" path="res://assets/prototype_yellow.tres" id="5_voxki"]
+[ext_resource type="Texture2D" uid="uid://cpnfcdxrbo7s3" path="res://addons/kenney_prototype_textures/dark/texture_13.png" id="6_6py4o"]
+[ext_resource type="Material" uid="uid://bcc61sbpimdrd" path="res://assets/dark_prototype.tres" id="6_w1jwu"]
+[ext_resource type="Texture2D" uid="uid://cn3kvbekati2j" path="res://addons/kenney_prototype_textures/purple/texture_03.png" id="8_a03oo"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b5ou0"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_r1yax"]
+sky_material = SubResource("ProceduralSkyMaterial_b5ou0")
+
+[sub_resource type="Environment" id="Environment_uffim"]
+background_mode = 2
+sky = SubResource("Sky_r1yax")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p7cue"]
+bg_color = Color(0.933333, 0.176471, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_del2j"]
+bg_color = Color(0.356863, 0.698039, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_326eh"]
+albedo_texture = ExtResource("3_nhy6i")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tkgt1"]
+albedo_texture = ExtResource("4_y7kkm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8jvr1"]
+albedo_texture = ExtResource("6_6py4o")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tx8fl"]
+albedo_texture = ExtResource("5_quk4n")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q0nyn"]
+albedo_texture = ExtResource("8_a03oo")
+uv1_triplanar = true
+
+[node name="World" type="Node"]
+script = ExtResource("1_qkq14")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_uffim")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" type="PanelContainer" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 352.0
+offset_top = 187.0
+offset_right = -352.0
+offset_bottom = -187.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PauseMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PauseMenu/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="ResumeButton" type="Button" parent="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Exit"
+
+[node name="MouseSensitivityLabel" type="Label" parent="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Mouse Sensitivity"
+
+[node name="MouseSensitivitySlider" type="HSlider" parent="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+min_value = 0.1
+max_value = 10.0
+step = 0.1
+value = 1.0
+
+[node name="MainMenu" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 352.0
+offset_top = 187.0
+offset_right = -352.0
+offset_bottom = -187.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MainMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainMenu/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="HostButton" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="JoinButton" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="AddressEntry" type="LineEdit" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Enter Address to Join Here"
+alignment = 1
+
+[node name="HUD" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -536.0
+offset_top = -376.0
+offset_right = 216.0
+offset_bottom = 376.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+pivot_offset = Vector2(576, 376)
+texture = ExtResource("3_35n3h")
+stretch_mode = 5
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -370.0
+offset_right = 370.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_p7cue")
+theme_override_styles/fill = SubResource("StyleBoxFlat_del2j")
+value = 100.0
+
+[node name="HostingLabel" type="Label" parent="CanvasLayer/HUD"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Hosting"
+
+[node name="UpnpLabel" type="Label" parent="CanvasLayer/HUD"]
+visible = false
+layout_mode = 0
+offset_left = 1.0
+offset_top = 23.0
+offset_right = 41.0
+offset_bottom = 46.0
+text = "uPNP"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://player.tscn")
+spawn_path = NodePath("..")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="floor" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.01575, 0, 1.49864)
+size = Vector3(99.3372, 1, 96.642)
+material = SubResource("StandardMaterial3D_326eh")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -8.97916)
+size = Vector3(3, 3, 3)
+material = SubResource("StandardMaterial3D_tkgt1")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -8.97916)
+size = Vector3(3, 3, 3)
+material = SubResource("StandardMaterial3D_tkgt1")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 15.0445)
+size = Vector3(3, 3, 3)
+material = SubResource("StandardMaterial3D_tkgt1")
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.6144, 1.38652, -24.3321)
+size = Vector3(1.97253, 1.79492, 1.87695)
+material = ExtResource("5_voxki")
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.394, 1.38652, -10.6965)
+size = Vector3(1.97253, 1.79492, 1.87695)
+material = ExtResource("5_voxki")
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.394, 1.38652, 20.6472)
+size = Vector3(1.97253, 1.79492, 1.87695)
+material = ExtResource("5_voxki")
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.1617, 1.38652, 20.6472)
+size = Vector3(1.97253, 1.79492, 1.87695)
+material = ExtResource("5_voxki")
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.6866, 1.38652, -31.7986)
+size = Vector3(1.97253, 1.79492, 1.87695)
+material = ExtResource("5_voxki")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.4009, 2, 25.1837)
+size = Vector3(3, 3, 3)
+material = SubResource("StandardMaterial3D_tkgt1")
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.9667, 2, 17.5777)
+size = Vector3(3, 3, 3)
+material = SubResource("StandardMaterial3D_tkgt1")
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.4089, 2.77142, -4.30862)
+size = Vector3(10.0839, 4.54285, 13.0786)
+material = SubResource("StandardMaterial3D_8jvr1")
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="CSGCombiner3D/CSGBox3D16"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0516205, -0.156464, 0.0491333)
+operation = 2
+size = Vector3(9.83273, 4.22992, 12.3639)
+material = SubResource("StandardMaterial3D_8jvr1")
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="CSGCombiner3D/CSGBox3D16"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.69913, -1.07478, -2.88033)
+operation = 2
+size = Vector3(1.13385, 2.39328, 1.55521)
+material = SubResource("StandardMaterial3D_8jvr1")
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="CSGCombiner3D/CSGBox3D16"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.69913, -0.724796, 0.176566)
+operation = 2
+size = Vector3(1.13385, 0.49437, 1.55521)
+material = SubResource("StandardMaterial3D_8jvr1")
+
+[node name="CSGBox3D20" type="CSGBox3D" parent="CSGCombiner3D/CSGBox3D16"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.69913, -0.724796, 2.54038)
+operation = 2
+size = Vector3(1.13385, 0.49437, 1.55521)
+material = SubResource("StandardMaterial3D_8jvr1")
+
+[node name="CSGBox3D21" type="CSGBox3D" parent="CSGCombiner3D/CSGBox3D16"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.69913, -0.724796, 4.86637)
+operation = 2
+size = Vector3(1.13385, 0.49437, 1.55521)
+material = SubResource("StandardMaterial3D_8jvr1")
+
+[node name="CSGBox3D22" type="CSGBox3D" parent="CSGCombiner3D/CSGBox3D16"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.11324, -0.724796, 1.0285)
+operation = 2
+size = Vector3(1.13385, 0.49437, 1.55521)
+material = SubResource("StandardMaterial3D_8jvr1")
+
+[node name="CSGBox3D23" type="CSGBox3D" parent="CSGCombiner3D/CSGBox3D16"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.01764, 2.19303, -4.65169)
+operation = 2
+size = Vector3(1.13385, 0.49437, 1.55521)
+material = SubResource("StandardMaterial3D_8jvr1")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.6693, 2, -11.8353)
+size = Vector3(3, 3, 3)
+material = SubResource("StandardMaterial3D_tkgt1")
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.1221, 2.36874, -33.9155)
+size = Vector3(5.08783, 3.73749, 10.8983)
+material = ExtResource("6_w1jwu")
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="CSGCombiner3D/CSGBox3D8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.106087, -0.311264, -0.0403442)
+operation = 2
+size = Vector3(4.15208, 3.11496, 12.35)
+material = ExtResource("6_w1jwu")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.1311, 2, -24.7765)
+size = Vector3(3, 3, 3)
+material = SubResource("StandardMaterial3D_tkgt1")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(3, 0, 0, 0, 2, 0, 0, 0, 3, 18.9899, 2.4839, 0.000779152)
+material = SubResource("StandardMaterial3D_tx8fl")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(3, 0, 0, 0, 2, 0, 0, 0, 3, 18.9899, 2.4839, 4.63755)
+material = SubResource("StandardMaterial3D_tx8fl")
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(3, 0, 0, 0, 2, 0, 0, 0, 3, -30.5143, 2.4839, -31.5984)
+material = SubResource("StandardMaterial3D_tx8fl")
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(3, 0, 0, 0, 2, 0, 0, 0, 3, 36.6177, 2.4839, -25.7993)
+material = SubResource("StandardMaterial3D_tx8fl")
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="CSGCombiner3D"]
+transform = Transform3D(3, 0, 0, 0, 0.170653, 2.99514, 0, -2.99514, 0.170653, -23.2247, 1, 26)
+sides = 58
+material = SubResource("StandardMaterial3D_q0nyn")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.3547, 1, -21.7037)
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.84713, 1, 21.2394)
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="CSGCombiner3D"]
+transform = Transform3D(-0.174267, 0, -0.984698, 0, 1, 0, 0.984698, 0, -0.174267, 19.0881, 2.16495, -1.34291)
+polygon = PackedVector2Array(7.69711, -1.73413, 13.453, -1.74133, 7.25911, 2.26511)
+
+[connection signal="pressed" from="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="value_changed" from="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/MouseSensitivitySlider" to="." method="_on_mouse_sensitivity_slider_value_changed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]

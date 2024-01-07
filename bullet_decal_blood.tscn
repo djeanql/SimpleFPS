@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://ch3qbp0m6dfbt"]
+
+[ext_resource type="Script" path="res://bullet_decal.gd" id="1_5etyt"]
+[ext_resource type="Texture2D" uid="uid://dqe3x3nht0hrn" path="res://assets/blood.png" id="2_t0ubk"]
+
+[node name="bullet_decal" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+script = ExtResource("1_5etyt")
+
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+size = Vector3(0.15, 0.15, 0.15)
+texture_albedo = ExtResource("2_t0ubk")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 60.0
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
