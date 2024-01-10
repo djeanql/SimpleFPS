@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://crum63u6wnooe"]
+[gd_scene load_steps=22 format=3 uid="uid://crum63u6wnooe"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_qkq14"]
 [ext_resource type="Texture2D" uid="uid://cb46quo7eky1n" path="res://assets/crosshair.png" id="3_35n3h"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://cpnfcdxrbo7s3" path="res://addons/kenney_prototype_textures/dark/texture_13.png" id="6_6py4o"]
 [ext_resource type="Material" uid="uid://bcc61sbpimdrd" path="res://assets/dark_prototype.tres" id="6_w1jwu"]
 [ext_resource type="Texture2D" uid="uid://cn3kvbekati2j" path="res://addons/kenney_prototype_textures/purple/texture_03.png" id="8_a03oo"]
+[ext_resource type="Script" path="res://PlayerManager.gd" id="10_o1or2"]
+[ext_resource type="Script" path="res://NetworkManager.gd" id="11_5kvuw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b5ou0"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -359,9 +361,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.84713, 1, 21.2394)
 transform = Transform3D(-0.174267, 0, -0.984698, 0, 1, 0, 0.984698, 0, -0.174267, 19.0881, 2.16495, -1.34291)
 polygon = PackedVector2Array(7.69711, -1.73413, 13.453, -1.74133, 7.25911, 2.26511)
 
+[node name="Managers" type="Node" parent="."]
+
+[node name="PlayerManager" type="Node" parent="Managers"]
+script = ExtResource("10_o1or2")
+
+[node name="NetworkManager" type="Node" parent="Managers"]
+script = ExtResource("11_5kvuw")
+
 [connection signal="pressed" from="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="value_changed" from="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/MouseSensitivitySlider" to="." method="_on_mouse_sensitivity_slider_value_changed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
-[connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]
+[connection signal="spawned" from="MultiplayerSpawner" to="Managers/NetworkManager" method="_on_multiplayer_spawner_spawned"]

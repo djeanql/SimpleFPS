@@ -8,17 +8,10 @@ signal unpause
 @onready var hud = $CanvasLayer/HUD
 @onready var health_bar = $CanvasLayer/HUD/HealthBar
 @onready var hosting_label = $CanvasLayer/HUD/HostingLabel
-@onready var upnp_label = $CanvasLayer/HUD/UpnpLabel
 
-
-const Player = preload("res://player.tscn")
-const PORT = 8888
-var enet_peer = ENetMultiplayerPeer.new()
+@onready var network_manager = $Managers/NetworkManager
 
 var pause_menu_open = false
-
-func _ready():
-	multiplayer.allow_object_decoding = true
 
 func _process(delta):
 	DisplayServer.window_set_title("Simple FPS" + " | fps: " + str(Engine.get_frames_per_second()))
@@ -39,72 +32,25 @@ func _on_host_button_pressed():
 	hud.show()
 	hosting_label.show()
 	
-	enet_peer.create_server(PORT)
-	multiplayer.multiplayer_peer = enet_peer
-	multiplayer.peer_connected.connect(add_player)
-	multiplayer.peer_disconnected.connect(remove_player)
-	
-	add_player(multiplayer.get_unique_id())
-	
-	# upnp_setup()
+	network_manager.start_server()
 
 func _on_join_button_pressed():
 	main_menu.hide()
 	hud.show()
-
-	enet_peer.create_client(address_entry.text, PORT)
-	multiplayer.multiplayer_peer = enet_peer
-
-func add_player(peer_id):
-	var player = Player.instantiate()
-	player.name = str(peer_id)
-	add_child(player)
-	if player.is_multiplayer_authority():
-		player.health_changed.connect(update_health_bar)
-
-func remove_player(peer_id):
-	var player = get_node_or_null(str(peer_id))
-	if player:
-		player.queue_free()
-
-func update_health_bar(health_value):
-	health_bar.value = health_value
-
-func _on_multiplayer_spawner_spawned(node):
-	if node.is_multiplayer_authority():
-		node.health_changed.connect(update_health_bar)
-
-func upnp_setup():
-	var upnp = UPNP.new()
-
-	var discover_result = upnp.discover()
 	
-	if discover_result != UPNP.UPNP_RESULT_SUCCESS:
-		print("UPNP Discover Failed. Error %s" % discover_result)
-		return
-
-	if not upnp.get_gateway() or not upnp.get_gateway().is_valid_gateway():
-		print("UPNP Invalid Gateway!")
-
-
-	var map_result = upnp.add_port_mapping(PORT)
-	if map_result != UPNP.UPNP_RESULT_SUCCESS:
-		print("UPNP Port Mapping Failed! Error %s" % map_result)
-		return
-
-	print("UPNP Success! Join  Address: %s" % upnp.query_external_address())
-
-	hosting_label.text = "Hosting: %s" % upnp.query_external_address()
-	upnp_label.show()
+	network_manager.start_client(address_entry.text)
 
 func _on_mouse_sensitivity_slider_value_changed(value):
 	get_tree().call_group("player", "change_mouse_sensitivity")
-
 
 func _on_resume_button_pressed():
 	$CanvasLayer/PauseMenu.hide()
 	pause_menu_open = false
 	unpause.emit()
+
+# TODO: Move this to UIManager
+func update_health_bar(health_value):
+	health_bar.value = health_value
 
 func _on_exit_button_pressed():
 	get_tree().quit()

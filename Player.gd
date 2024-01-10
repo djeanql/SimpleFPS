@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 signal health_changed(health_value)
 
+@onready var world = get_tree().get_current_scene()
 @onready var camera = $Camera3D
 @onready var anim_player = $AnimationPlayer
 @onready var muzzle_flash = $Camera3D/pistol/MuzzleFlash
@@ -29,8 +30,8 @@ func _enter_tree():
 
 func _ready():
 	get_node("../CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/MouseSensitivitySlider").value_changed.connect(change_mouse_sensitivity)
-	get_node("..").pause.connect(pause)
-	get_node("..").unpause.connect(unpause)
+	world.pause.connect(pause)
+	world.unpause.connect(unpause)
 	if not is_multiplayer_authority(): return
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	camera.current = true
@@ -50,7 +51,7 @@ func _unhandled_input(event):
 		shoot_effects.rpc()
 		
 		if raycast.is_colliding():
-			add_bullet_decal.rpc(raycast)
+			add_bullet_decal(raycast)
 			var hit_object = raycast.get_collider()
 			if hit_object.is_in_group("player"):
 				hit_object.receive_damage.rpc_id(hit_object.get_multiplayer_authority())
@@ -114,7 +115,7 @@ func receive_damage():
 	
 	health_changed.emit(health)
 
-@rpc("call_local", "any_peer")
+# Not yet working with multiplayer
 func add_bullet_decal(raycast):
 	if raycast.is_colliding():
 		var col_nor = raycast.get_collision_normal()
