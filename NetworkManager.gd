@@ -5,6 +5,7 @@ const PORT = 8888
 var enet_peer = ENetMultiplayerPeer.new()
 
 @onready var world = get_tree().get_current_scene()
+@onready var player_manager = $"../PlayerManager"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -18,7 +19,7 @@ func start_server():
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(remove_player)
 	
-	add_player(multiplayer.get_unique_id())
+	#add_player(multiplayer.get_unique_id())
 
 func start_client(addr):
 	enet_peer.create_client(addr, PORT)
@@ -30,6 +31,8 @@ func add_player(peer_id):
 	world.add_child(player)
 	if player.is_multiplayer_authority():
 		player.health_changed.connect(world.update_health_bar)
+	
+	player.shoot.connect(player_manager.shoot)
 
 func remove_player(peer_id):
 	var player = get_node_or_null(str(peer_id))
@@ -39,6 +42,9 @@ func remove_player(peer_id):
 func _on_multiplayer_spawner_spawned(node):
 	if node.is_multiplayer_authority():
 		node.health_changed.connect(world.update_health_bar)
+	
+	if node.is_in_group("player"):
+		node.shoot.connect(player_manager.shoot)
 
 func upnp_setup():
 	var upnp = UPNP.new()
