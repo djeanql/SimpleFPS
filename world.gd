@@ -13,10 +13,10 @@ signal unpause
 
 var pause_menu_open = false
 
-func _process(delta):
+func _process(_delta):
 	DisplayServer.window_set_title("Simple FPS" + " | fps: " + str(Engine.get_frames_per_second()))
 
-func _unhandled_input(event):
+func _unhandled_input(_event):
 	if Input.is_action_just_pressed("quit"):
 		if not pause_menu_open:
 			$CanvasLayer/PauseMenu.show()
@@ -37,10 +37,10 @@ func _on_host_button_pressed():
 func _on_join_button_pressed():
 	main_menu.hide()
 	hud.show()
-	
+
 	network_manager.start_client(address_entry.text)
 
-func _on_mouse_sensitivity_slider_value_changed(value):
+func _on_mouse_sensitivity_slider_value_changed(_value):
 	get_tree().call_group("player", "change_mouse_sensitivity")
 
 func _on_resume_button_pressed():

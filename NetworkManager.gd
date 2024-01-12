@@ -1,25 +1,20 @@
 extends Node
 
 const Player = preload("res://player.tscn")
-const PORT = 8888
-var enet_peer = ENetMultiplayerPeer.new()
 
 @onready var world = get_tree().get_current_scene()
 @onready var player_manager = $"../PlayerManager"
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+const PORT = 8888
+var enet_peer = ENetMultiplayerPeer.new()
 
 func start_server():
 	# upnp_setup()
-	
+
 	enet_peer.create_server(PORT)
 	multiplayer.multiplayer_peer = enet_peer
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(remove_player)
-	
-	#add_player(multiplayer.get_unique_id())
 
 func start_client(addr):
 	enet_peer.create_client(addr, PORT)

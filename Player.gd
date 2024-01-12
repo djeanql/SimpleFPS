@@ -18,11 +18,9 @@ var health = 100
 
 const SPEED = 8.0
 const JUMP_VELOCITY = 7.0
+var gravity = 20.0
 
 var mouse_sensitivity = 0.003
-
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = 20.0
 
 var paused = false
 
@@ -30,19 +28,18 @@ func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
 
 func _ready():
+	if not is_multiplayer_authority(): return
+
 	get_node("../CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/MouseSensitivitySlider").value_changed.connect(change_mouse_sensitivity)
 	world.pause.connect(pause)
 	world.unpause.connect(unpause)
-	if not is_multiplayer_authority(): return
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	camera.current = true
 
 func _unhandled_input(event):
-	if paused:
+	if paused or not is_multiplayer_authority():
 		return
-	
-	if not is_multiplayer_authority(): return
-	
+
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		camera.rotate_x(-event.relative.y * mouse_sensitivity)
@@ -50,21 +47,17 @@ func _unhandled_input(event):
 	
 	if Input.is_action_just_pressed("shoot") and anim_player.current_animation != "shoot":
 		shoot_effects.rpc()
-		
 		shoot.emit()
 
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
-	# Add the gravity.
+
 	if not is_on_floor(): 
 		velocity.y -= gravity * delta
 
-	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir = Input.get_vector("left", "right", "up", "down")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
