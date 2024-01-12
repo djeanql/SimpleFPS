@@ -28,7 +28,9 @@ func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
 
 func _ready():
-	if not is_multiplayer_authority(): return
+	if not is_multiplayer_authority():
+		print(name)
+		return
 
 	get_node("../CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/MouseSensitivitySlider").value_changed.connect(change_mouse_sensitivity)
 	world.pause.connect(pause)

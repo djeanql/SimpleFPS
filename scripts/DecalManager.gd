@@ -1,7 +1,7 @@
 extends Node
 
-@onready var decal = preload("res://bullet_decal.tscn")
-@onready var decal_blood = preload("res://bullet_decal_blood.tscn")
+@onready var decal = preload("res://scenes/bullet_decal.tscn")
+@onready var decal_blood = preload("res://scenes/bullet_decal_blood.tscn")
 
 func add_bullet_decal(raycast):
 	var collider = raycast.get_collider()

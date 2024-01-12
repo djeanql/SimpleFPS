@@ -1,11 +1,11 @@
 [gd_scene load_steps=20 format=3 uid="uid://b553bl0r18aqn"]
 
-[ext_resource type="Script" path="res://Player.gd" id="1_5yhjs"]
-[ext_resource type="PackedScene" uid="uid://dj0sjsttpmxm6" path="res://pistol.blend" id="2_lufd4"]
-[ext_resource type="Texture2D" uid="uid://dil3g4g3ibw8t" path="res://addons/kenney_particle_pack/star_06.png" id="3_7v35y"]
-[ext_resource type="AudioStream" uid="uid://c66v8pum61vj8" path="res://assets/pistol1.mp3" id="4_pbh7b"]
-[ext_resource type="AudioStream" uid="uid://bwfchrp1v7bhu" path="res://assets/hit.wav" id="5_jmm3p"]
-[ext_resource type="AudioStream" uid="uid://kbj8s3i14eht" path="res://assets/scream.mp3" id="6_8247m"]
+[ext_resource type="Script" path="res://scripts/Player.gd" id="1_aro05"]
+[ext_resource type="PackedScene" uid="uid://dj0sjsttpmxm6" path="res://scenes/pistol.blend" id="2_bbsjt"]
+[ext_resource type="Texture2D" uid="uid://dil3g4g3ibw8t" path="res://addons/kenney_particle_pack/star_06.png" id="3_uwqen"]
+[ext_resource type="AudioStream" uid="uid://c66v8pum61vj8" path="res://assets/pistol.mp3" id="4_ick0l"]
+[ext_resource type="AudioStream" uid="uid://bwfchrp1v7bhu" path="res://assets/hit.wav" id="5_87abr"]
+[ext_resource type="AudioStream" uid="uid://kbj8s3i14eht" path="res://assets/scream.mp3" id="6_cof8w"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_fsho2"]
 
@@ -29,7 +29,7 @@ transparency = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
 albedo_color = Color(0.980392, 1, 0.686275, 0.996078)
-albedo_texture = ExtResource("3_7v35y")
+albedo_texture = ExtResource("3_uwqen")
 billboard_mode = 3
 particles_anim_h_frames = 1
 particles_anim_v_frames = 1
@@ -162,7 +162,7 @@ properties/2/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 collision_layer = 2
-script = ExtResource("1_5yhjs")
+script = ExtResource("1_aro05")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -175,7 +175,7 @@ shape = SubResource("CapsuleShape3D_oil0y")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.57022, 0)
 
-[node name="pistol" parent="Camera3D" instance=ExtResource("2_lufd4")]
+[node name="pistol" parent="Camera3D" instance=ExtResource("2_bbsjt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.25, -0.5)
 
 [node name="MuzzleFlash" type="GPUParticles3D" parent="Camera3D/pistol"]
@@ -190,7 +190,7 @@ draw_pass_1 = SubResource("PlaneMesh_h5i6h")
 
 [node name="GunSoundPlayer" type="AudioStreamPlayer3D" parent="Camera3D/pistol"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00920695, 0.0588703, -0.122722)
-stream = ExtResource("4_pbh7b")
+stream = ExtResource("4_ick0l")
 volume_db = -25.351
 
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
@@ -212,10 +212,10 @@ replication_config = SubResource("SceneReplicationConfig_n5628")
 
 [node name="HitSoundPlayer" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-stream = ExtResource("5_jmm3p")
+stream = ExtResource("5_87abr")
 
 [node name="DeathSoundPlayer" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5075, 0)
-stream = ExtResource("6_8247m")
+stream = ExtResource("6_cof8w")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

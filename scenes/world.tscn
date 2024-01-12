@@ -1,17 +1,17 @@
 [gd_scene load_steps=23 format=3 uid="uid://crum63u6wnooe"]
 
-[ext_resource type="Script" path="res://world.gd" id="1_qkq14"]
-[ext_resource type="Texture2D" uid="uid://cb46quo7eky1n" path="res://assets/crosshair.png" id="3_35n3h"]
-[ext_resource type="Texture2D" uid="uid://diolg5eud2qqw" path="res://addons/kenney_prototype_textures/light/texture_02.png" id="3_nhy6i"]
-[ext_resource type="Texture2D" uid="uid://bgvbypdiw3kli" path="res://addons/kenney_prototype_textures/red/texture_05.png" id="4_y7kkm"]
-[ext_resource type="Texture2D" uid="uid://wvwj40c6y8wa" path="res://addons/kenney_prototype_textures/green/texture_01.png" id="5_quk4n"]
-[ext_resource type="Material" uid="uid://bpjwyev0w3dje" path="res://assets/prototype_yellow.tres" id="5_voxki"]
-[ext_resource type="Texture2D" uid="uid://cpnfcdxrbo7s3" path="res://addons/kenney_prototype_textures/dark/texture_13.png" id="6_6py4o"]
-[ext_resource type="Material" uid="uid://bcc61sbpimdrd" path="res://assets/dark_prototype.tres" id="6_w1jwu"]
-[ext_resource type="Texture2D" uid="uid://cn3kvbekati2j" path="res://addons/kenney_prototype_textures/purple/texture_03.png" id="8_a03oo"]
-[ext_resource type="Script" path="res://PlayerManager.gd" id="10_o1or2"]
-[ext_resource type="Script" path="res://NetworkManager.gd" id="11_5kvuw"]
-[ext_resource type="Script" path="res://DecalManager.gd" id="13_gsd12"]
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_lvjl2"]
+[ext_resource type="Texture2D" uid="uid://cb46quo7eky1n" path="res://assets/crosshair.png" id="2_pyfpu"]
+[ext_resource type="Texture2D" uid="uid://diolg5eud2qqw" path="res://addons/kenney_prototype_textures/light/texture_02.png" id="3_mci42"]
+[ext_resource type="Texture2D" uid="uid://bgvbypdiw3kli" path="res://addons/kenney_prototype_textures/red/texture_05.png" id="4_hpt48"]
+[ext_resource type="Material" uid="uid://bpjwyev0w3dje" path="res://assets/prototype_yellow.tres" id="5_rk5kl"]
+[ext_resource type="Texture2D" uid="uid://cpnfcdxrbo7s3" path="res://addons/kenney_prototype_textures/dark/texture_13.png" id="6_giy4i"]
+[ext_resource type="Material" uid="uid://bcc61sbpimdrd" path="res://assets/dark_prototype.tres" id="7_6qesv"]
+[ext_resource type="Texture2D" uid="uid://wvwj40c6y8wa" path="res://addons/kenney_prototype_textures/green/texture_01.png" id="8_le8ph"]
+[ext_resource type="Texture2D" uid="uid://cn3kvbekati2j" path="res://addons/kenney_prototype_textures/purple/texture_03.png" id="9_aoweq"]
+[ext_resource type="Script" path="res://scripts/PlayerManager.gd" id="10_v8vnj"]
+[ext_resource type="Script" path="res://scripts/NetworkManager.gd" id="11_bekh2"]
+[ext_resource type="Script" path="res://scripts/DecalManager.gd" id="12_ndycc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b5ou0"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -33,26 +33,26 @@ bg_color = Color(0.933333, 0.176471, 0, 1)
 bg_color = Color(0.356863, 0.698039, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_326eh"]
-albedo_texture = ExtResource("3_nhy6i")
+albedo_texture = ExtResource("3_mci42")
 uv1_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tkgt1"]
-albedo_texture = ExtResource("4_y7kkm")
+albedo_texture = ExtResource("4_hpt48")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8jvr1"]
-albedo_texture = ExtResource("6_6py4o")
+albedo_texture = ExtResource("6_giy4i")
 uv1_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tx8fl"]
-albedo_texture = ExtResource("5_quk4n")
+albedo_texture = ExtResource("8_le8ph")
 uv1_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q0nyn"]
-albedo_texture = ExtResource("8_a03oo")
+albedo_texture = ExtResource("9_aoweq")
 uv1_triplanar = true
 
 [node name="World" type="Node"]
-script = ExtResource("1_qkq14")
+script = ExtResource("1_lvjl2")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
@@ -169,7 +169,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
 pivot_offset = Vector2(576, 376)
-texture = ExtResource("3_35n3h")
+texture = ExtResource("2_pyfpu")
 stretch_mode = 5
 
 [node name="HealthBar" type="ProgressBar" parent="CanvasLayer/HUD"]
@@ -202,7 +202,7 @@ offset_bottom = 46.0
 text = "uPNP"
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://player.tscn")
+_spawnable_scenes = PackedStringArray("res://scenes/player.tscn")
 spawn_path = NodePath("..")
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
@@ -231,27 +231,27 @@ material = SubResource("StandardMaterial3D_tkgt1")
 [node name="CSGBox3D9" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.6144, 1.38652, -24.3321)
 size = Vector3(1.97253, 1.79492, 1.87695)
-material = ExtResource("5_voxki")
+material = ExtResource("5_rk5kl")
 
 [node name="CSGBox3D11" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.394, 1.38652, -10.6965)
 size = Vector3(1.97253, 1.79492, 1.87695)
-material = ExtResource("5_voxki")
+material = ExtResource("5_rk5kl")
 
 [node name="CSGBox3D12" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.394, 1.38652, 20.6472)
 size = Vector3(1.97253, 1.79492, 1.87695)
-material = ExtResource("5_voxki")
+material = ExtResource("5_rk5kl")
 
 [node name="CSGBox3D13" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.1617, 1.38652, 20.6472)
 size = Vector3(1.97253, 1.79492, 1.87695)
-material = ExtResource("5_voxki")
+material = ExtResource("5_rk5kl")
 
 [node name="CSGBox3D14" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.6866, 1.38652, -31.7986)
 size = Vector3(1.97253, 1.79492, 1.87695)
-material = ExtResource("5_voxki")
+material = ExtResource("5_rk5kl")
 
 [node name="CSGBox3D6" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.4009, 2, 25.1837)
@@ -318,13 +318,13 @@ material = SubResource("StandardMaterial3D_tkgt1")
 [node name="CSGBox3D8" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.1221, 2.36874, -33.9155)
 size = Vector3(5.08783, 3.73749, 10.8983)
-material = ExtResource("6_w1jwu")
+material = ExtResource("7_6qesv")
 
 [node name="CSGBox3D9" type="CSGBox3D" parent="CSGCombiner3D/CSGBox3D8"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.106087, -0.311264, -0.0403442)
 operation = 2
 size = Vector3(4.15208, 3.11496, 12.35)
-material = ExtResource("6_w1jwu")
+material = ExtResource("7_6qesv")
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.1311, 2, -24.7765)
@@ -365,13 +365,13 @@ polygon = PackedVector2Array(7.69711, -1.73413, 13.453, -1.74133, 7.25911, 2.265
 [node name="Managers" type="Node" parent="."]
 
 [node name="PlayerManager" type="Node" parent="Managers"]
-script = ExtResource("10_o1or2")
+script = ExtResource("10_v8vnj")
 
 [node name="NetworkManager" type="Node" parent="Managers"]
-script = ExtResource("11_5kvuw")
+script = ExtResource("11_bekh2")
 
 [node name="DecalManager" type="Node" parent="Managers"]
-script = ExtResource("13_gsd12")
+script = ExtResource("12_ndycc")
 
 [connection signal="pressed" from="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

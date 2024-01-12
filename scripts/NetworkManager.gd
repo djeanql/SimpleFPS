@@ -1,6 +1,6 @@
 extends Node
 
-const Player = preload("res://player.tscn")
+const Player = preload("res://scenes/player.tscn")
 
 @onready var world = get_tree().get_current_scene()
 @onready var player_manager = $"../PlayerManager"
