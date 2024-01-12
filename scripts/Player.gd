@@ -102,10 +102,16 @@ func receive_damage():
 		death_sound.rpc()
 		health = 100
 		position = Vector3.ZERO
-	
+		respawn.rpc()
+
 	damage_sound.rpc()
 	
 	health_changed.emit(health)
+
+@rpc("any_peer", "call_local")
+func respawn():
+	for decal in decals.get_children():
+		decals.remove_child(decal)
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "shoot":

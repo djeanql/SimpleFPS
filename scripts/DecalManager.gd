@@ -15,6 +15,10 @@ func add_bullet_decal_rpc(parent_path, col_point, col_nor):
 	var collider = get_node(parent_path)
 
 	var b = decal_blood.instantiate() if collider.is_in_group("player") else decal.instantiate()
+	
+	if "decals" in collider:
+		collider = collider.decals
+	
 	collider.add_child(b, true)
 
 	b.global_transform.origin = col_point
