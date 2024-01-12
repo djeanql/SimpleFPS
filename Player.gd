@@ -12,7 +12,7 @@ signal shoot
 @onready var gun_sound_player = $Camera3D/pistol/GunSoundPlayer
 @onready var hit_sound_player = $HitSoundPlayer
 @onready var death_sound_player = $DeathSoundPlayer
-
+@onready var decals = $decals
 
 var health = 100
 
@@ -86,7 +86,7 @@ func _physics_process(delta):
 @rpc("call_local")
 func damage_sound():
 	hit_sound_player.play()
-	
+
 @rpc("call_local")
 func death_sound():
 	death_sound_player.play()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://crum63u6wnooe"]
+[gd_scene load_steps=23 format=3 uid="uid://crum63u6wnooe"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_qkq14"]
 [ext_resource type="Texture2D" uid="uid://cb46quo7eky1n" path="res://assets/crosshair.png" id="3_35n3h"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cn3kvbekati2j" path="res://addons/kenney_prototype_textures/purple/texture_03.png" id="8_a03oo"]
 [ext_resource type="Script" path="res://PlayerManager.gd" id="10_o1or2"]
 [ext_resource type="Script" path="res://NetworkManager.gd" id="11_5kvuw"]
+[ext_resource type="Script" path="res://DecalManager.gd" id="13_gsd12"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b5ou0"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -368,6 +369,9 @@ script = ExtResource("10_o1or2")
 
 [node name="NetworkManager" type="Node" parent="Managers"]
 script = ExtResource("11_5kvuw")
+
+[node name="DecalManager" type="Node" parent="Managers"]
+script = ExtResource("13_gsd12")
 
 [connection signal="pressed" from="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

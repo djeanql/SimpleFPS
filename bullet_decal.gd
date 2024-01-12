@@ -1,15 +1,20 @@
 extends Node3D
 
+var col_point
+var col_nor
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
+#func place():
+	#print(global_transform.origin)
+	#print(col_point)
+#
+	#global_transform.origin = col_point
+	#if col_nor == Vector3.DOWN:
+		#rotation_degrees.x = 90
+	#elif col_nor != Vector3.UP:
+		#look_at(col_point - col_nor, Vector3(0,1,0))
 
 func _on_timer_timeout():
 	queue_free()
+
+#func _enter_tree():
+	#place()
