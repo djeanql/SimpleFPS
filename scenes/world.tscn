@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://crum63u6wnooe"]
+[gd_scene load_steps=24 format=3 uid="uid://crum63u6wnooe"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_lvjl2"]
 [ext_resource type="Texture2D" uid="uid://cb46quo7eky1n" path="res://assets/crosshair.png" id="2_pyfpu"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://scripts/PlayerManager.gd" id="10_v8vnj"]
 [ext_resource type="Script" path="res://scripts/NetworkManager.gd" id="11_bekh2"]
 [ext_resource type="Script" path="res://scripts/DecalManager.gd" id="12_ndycc"]
+[ext_resource type="Script" path="res://scenes/ChatManager.gd" id="13_5gpik"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b5ou0"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -209,6 +210,20 @@ offset_right = 41.0
 offset_bottom = 46.0
 text = "uPNP"
 
+[node name="ChatLabel" type="Label" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -43.0
+offset_right = 163.0
+offset_bottom = -20.0
+grow_vertical = 0
+scale = Vector2(1, 1.00286)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 21
+
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/player.tscn")
 spawn_path = NodePath("..")
@@ -380,6 +395,9 @@ script = ExtResource("11_bekh2")
 
 [node name="DecalManager" type="Node" parent="Managers"]
 script = ExtResource("12_ndycc")
+
+[node name="ChatManager" type="Node" parent="Managers"]
+script = ExtResource("13_5gpik")
 
 [connection signal="pressed" from="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

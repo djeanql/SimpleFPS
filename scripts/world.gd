@@ -8,6 +8,7 @@ signal unpause
 @onready var username_entry = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/UsernameEntry
 @onready var hud = $CanvasLayer/HUD
 @onready var health_bar = $CanvasLayer/HUD/HealthBar
+@onready var chat_label = $CanvasLayer/HUD/ChatLabel
 @onready var hosting_label = $CanvasLayer/HUD/HostingLabel
 
 @onready var network_manager = $Managers/NetworkManager

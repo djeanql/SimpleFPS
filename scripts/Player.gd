@@ -17,8 +17,7 @@ signal shoot
 @onready var username_label = $UsernameLabel
 
 @export var username = name
-
-var health = 100
+@export var health = 100
 
 const SPEED = 8.0
 const JUMP_VELOCITY = 7.0
@@ -87,12 +86,18 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-@rpc("call_local")
+@rpc("call_local", "any_peer")
 func damage_sound():
+	if multiplayer.get_remote_sender_id() != 1:
+		return
+
 	hit_sound_player.play()
 
-@rpc("call_local")
+@rpc("call_local", "any_peer")
 func death_sound():
+	if multiplayer.get_remote_sender_id() != 1:
+		return
+
 	death_sound_player.play()
 
 @rpc("call_local")
@@ -105,25 +110,26 @@ func shoot_effects():
 	muzzle_flash.emitting = true
 
 @rpc("any_peer", "call_local")
-func receive_damage():
+func receive_damage(damage):
 	if multiplayer.get_remote_sender_id() != 1:
 		return
 
-	health -= 20
-	if health <= 0:
-		death_sound.rpc()
-		health = 100
-		position = Vector3.ZERO
-		respawn.rpc()
-
+	health -= damage
 	damage_sound.rpc()
 	
 	health_changed.emit(health)
 
-@rpc("authority", "call_local")
+@rpc("any_peer", "call_local")
 func respawn():
+	if multiplayer.get_remote_sender_id() != 1:
+		return
+
 	for decal in decals.get_children():
 		decals.remove_child(decal)
+	
+	position = Vector3.ZERO
+	health = 100
+	health_changed.emit(health)
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "shoot":
@@ -133,6 +139,11 @@ func set_username(uname):
 	username = uname
 	username_label.text = username
 	print(username)
+
+
+#@rpc("any_peer", "call_local")
+#func chat_message(message):
+	#world.chat_label.text = message
 
 func change_mouse_sensitivity(value):
 	mouse_sensitivity = value / 1000
