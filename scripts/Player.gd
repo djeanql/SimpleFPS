@@ -119,6 +119,10 @@ func respawn():
 	health = 100
 	health_changed.emit(health)
 
+@rpc("any_peer")
+func hit_other_player(player):
+	$HitOtherPlayerSoundPlayer.play()
+
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "shoot":
 		anim_player.play("idle")

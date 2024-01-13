@@ -42,6 +42,7 @@ func shoot_rpc():
 		decal_manager.add_bullet_decal(raycast)
 
 		if hit_object.is_in_group("player"):
+			player.hit_other_player.rpc_id(player_id, hit_object.username)
 			hit_object.receive_damage.rpc_id(hit_object.get_multiplayer_authority(), 20)
 			hit_object.health -= 20
 			check_health(hit_object, player)

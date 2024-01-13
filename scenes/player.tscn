@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b553bl0r18aqn"]
+[gd_scene load_steps=21 format=3 uid="uid://b553bl0r18aqn"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_aro05"]
 [ext_resource type="PackedScene" uid="uid://dj0sjsttpmxm6" path="res://scenes/pistol.blend" id="2_bbsjt"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://c66v8pum61vj8" path="res://assets/pistol.mp3" id="4_ick0l"]
 [ext_resource type="AudioStream" uid="uid://bwfchrp1v7bhu" path="res://assets/hit.wav" id="5_87abr"]
 [ext_resource type="AudioStream" uid="uid://kbj8s3i14eht" path="res://assets/scream.mp3" id="6_cof8w"]
+[ext_resource type="AudioStream" uid="uid://b2hh1velyj720" path="res://assets/other_player_hit.wav" id="7_js2j1"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_fsho2"]
 
@@ -231,5 +232,9 @@ stream = ExtResource("6_cof8w")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2896, 0)
 billboard = 1
 text = "Player"
+
+[node name="HitOtherPlayerSoundPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_js2j1")
+volume_db = -6.895
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
