@@ -25,7 +25,5 @@ A simple multiplayer FPS game made in Godot 4
 
 ## Known Issues
 
-- Bullet holes caused by one player are not visible to others
-- Blood splatter effect on characters persists after respawn
 - Falling off the map does not kill your player
 - Slightly choppy movement
