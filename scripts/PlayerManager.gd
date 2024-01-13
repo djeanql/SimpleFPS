@@ -49,7 +49,6 @@ func shoot_rpc():
 func check_health(player, shot_by):
 	if player.health <= 0:
 		print("player dead")
-		player.death_sound.rpc()
 		player.respawn.rpc()
 		death_message(player.username, shot_by.username)
 	else:

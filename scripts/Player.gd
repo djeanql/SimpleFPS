@@ -86,20 +86,6 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-@rpc("call_local", "any_peer")
-func damage_sound():
-	if multiplayer.get_remote_sender_id() != 1:
-		return
-
-	hit_sound_player.play()
-
-@rpc("call_local", "any_peer")
-func death_sound():
-	if multiplayer.get_remote_sender_id() != 1:
-		return
-
-	death_sound_player.play()
-
 @rpc("call_local")
 func shoot_effects():
 	gun_sound_player.pitch_scale = randf_range(0.85, 1.15)
@@ -115,7 +101,7 @@ func receive_damage(damage):
 		return
 
 	health -= damage
-	damage_sound.rpc()
+	hit_sound_player.play()
 	
 	health_changed.emit(health)
 
@@ -123,6 +109,8 @@ func receive_damage(damage):
 func respawn():
 	if multiplayer.get_remote_sender_id() != 1:
 		return
+		
+	death_sound_player.play()
 
 	for decal in decals.get_children():
 		decals.remove_child(decal)
