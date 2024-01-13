@@ -141,7 +141,7 @@ text = "Join"
 
 [node name="AddressEntry" type="LineEdit" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Enter Address to Join Here"
+text = "localhost"
 alignment = 1
 
 [node name="HUD" type="Control" parent="CanvasLayer"]
