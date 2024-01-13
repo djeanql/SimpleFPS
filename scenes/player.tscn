@@ -162,7 +162,7 @@ properties/2/replication_mode = 1
 properties/3/path = NodePath(".:username")
 properties/3/spawn = true
 properties/3/replication_mode = 1
-properties/4/path = NodePath("Label3D:text")
+properties/4/path = NodePath("UsernameLabel:text")
 properties/4/spawn = true
 properties/4/replication_mode = 1
 
@@ -224,7 +224,7 @@ stream = ExtResource("5_87abr")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5075, 0)
 stream = ExtResource("6_cof8w")
 
-[node name="Label3D" type="Label3D" parent="."]
+[node name="UsernameLabel" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2896, 0)
 billboard = 1
 text = "Player"

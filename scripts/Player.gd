@@ -14,6 +14,7 @@ signal shoot
 @onready var hit_sound_player = $HitSoundPlayer
 @onready var death_sound_player = $DeathSoundPlayer
 @onready var decals = $decals
+@onready var username_label = $UsernameLabel
 
 @export var username = name
 
@@ -35,9 +36,10 @@ func _ready():
 		return
 
 	#print(player_manager.players)
+	username_label.hide()
 	player_manager.register_with_preset_username()
 	username = player_manager.local_username
-	$Label3D.text = username
+	username_label.text = username
 
 	get_node("../CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/MouseSensitivitySlider").value_changed.connect(change_mouse_sensitivity)
 	world.pause.connect(pause)
@@ -129,7 +131,7 @@ func _on_animation_player_animation_finished(anim_name):
 
 func set_username(uname):
 	username = uname
-	$Label3D.text = username
+	username_label.text = username
 	print(username)
 
 func change_mouse_sensitivity(value):
