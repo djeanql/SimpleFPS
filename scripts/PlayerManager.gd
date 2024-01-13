@@ -9,6 +9,10 @@ func shoot():
 
 @rpc("any_peer", "reliable")
 func shoot_rpc():
+	if not multiplayer.is_server():
+		print("not server")
+		return
+
 	print(multiplayer.get_remote_sender_id(), " is shooting")
 	var player_id = multiplayer.get_remote_sender_id()
 	var player = world.get_node_or_null(str(player_id))

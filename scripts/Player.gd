@@ -95,8 +95,11 @@ func shoot_effects():
 	muzzle_flash.restart()
 	muzzle_flash.emitting = true
 
-@rpc("any_peer")
+@rpc("any_peer", "call_local")
 func receive_damage():
+	if multiplayer.get_remote_sender_id() != 1:
+		return
+
 	health -= 20
 	if health <= 0:
 		death_sound.rpc()
@@ -108,7 +111,7 @@ func receive_damage():
 	
 	health_changed.emit(health)
 
-@rpc("any_peer", "call_local")
+@rpc("authority", "call_local")
 func respawn():
 	for decal in decals.get_children():
 		decals.remove_child(decal)
