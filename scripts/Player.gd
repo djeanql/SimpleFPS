@@ -29,7 +29,6 @@ func _enter_tree():
 
 func _ready():
 	if not is_multiplayer_authority():
-		print(name)
 		return
 
 	get_node("../CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/MouseSensitivitySlider").value_changed.connect(change_mouse_sensitivity)
@@ -122,7 +121,6 @@ func _on_animation_player_animation_finished(anim_name):
 
 func change_mouse_sensitivity(value):
 	mouse_sensitivity = value / 1000
-	print(mouse_sensitivity)
 
 func pause():
 	paused = true
