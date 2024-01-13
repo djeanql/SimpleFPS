@@ -5,6 +5,8 @@ const Player = preload("res://scenes/player.tscn")
 @onready var world = get_tree().get_current_scene()
 @onready var player_manager = $"../PlayerManager"
 
+var players = {}
+
 const PORT = 8888
 var enet_peer = ENetMultiplayerPeer.new()
 
@@ -26,8 +28,13 @@ func add_player(peer_id):
 	world.add_child(player)
 	if player.is_multiplayer_authority():
 		player.health_changed.connect(world.update_health_bar)
-	
+
 	player.shoot.connect(player_manager.shoot)
+
+@rpc("any_peer", "reliable")
+func register_player(new_player_info):
+	var new_player_id = multiplayer.get_remote_sender_id()
+	players[new_player_id] = new_player_info
 
 func remove_player(peer_id):
 	var player = get_node_or_null(str(peer_id))

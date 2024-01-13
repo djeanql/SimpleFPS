@@ -5,6 +5,7 @@ signal shoot
 
 @onready var world = get_tree().get_current_scene()
 @onready var network_manager = world.network_manager
+@onready var player_manager = world.player_manager
 @onready var camera = $Camera3D
 @onready var anim_player = $AnimationPlayer
 @onready var muzzle_flash = $Camera3D/pistol/MuzzleFlash
@@ -13,6 +14,8 @@ signal shoot
 @onready var hit_sound_player = $HitSoundPlayer
 @onready var death_sound_player = $DeathSoundPlayer
 @onready var decals = $decals
+
+@export var username = name
 
 var health = 100
 
@@ -30,6 +33,11 @@ func _enter_tree():
 func _ready():
 	if not is_multiplayer_authority():
 		return
+
+	#print(player_manager.players)
+	player_manager.register_with_preset_username()
+	username = player_manager.local_username
+	$Label3D.text = username
 
 	get_node("../CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/MouseSensitivitySlider").value_changed.connect(change_mouse_sensitivity)
 	world.pause.connect(pause)
@@ -118,6 +126,11 @@ func respawn():
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "shoot":
 		anim_player.play("idle")
+
+func set_username(uname):
+	username = uname
+	$Label3D.text = username
+	print(username)
 
 func change_mouse_sensitivity(value):
 	mouse_sensitivity = value / 1000

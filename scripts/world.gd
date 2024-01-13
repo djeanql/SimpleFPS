@@ -5,11 +5,13 @@ signal unpause
 
 @onready var main_menu = $CanvasLayer/MainMenu
 @onready var address_entry = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/AddressEntry
+@onready var username_entry = $CanvasLayer/MainMenu/MarginContainer/VBoxContainer/UsernameEntry
 @onready var hud = $CanvasLayer/HUD
 @onready var health_bar = $CanvasLayer/HUD/HealthBar
 @onready var hosting_label = $CanvasLayer/HUD/HostingLabel
 
 @onready var network_manager = $Managers/NetworkManager
+@onready var player_manager = $Managers/PlayerManager
 
 var pause_menu_open = false
 
@@ -37,8 +39,13 @@ func _on_host_button_pressed():
 func _on_join_button_pressed():
 	main_menu.hide()
 	hud.show()
+	
+	var address = "localhost" if not address_entry.text else address_entry.text
+	var username = "player" if not username_entry.text else username_entry.text
+	
+	player_manager.local_username = username
 
-	network_manager.start_client(address_entry.text)
+	network_manager.start_client(address)
 
 func _on_mouse_sensitivity_slider_value_changed(_value):
 	get_tree().call_group("player", "change_mouse_sensitivity")
